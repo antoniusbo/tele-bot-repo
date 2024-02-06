@@ -1,6 +1,5 @@
 import telebot
 import config
-import webbrowser
 # from content import handle_photo
 from commands import welcome_message
 from commands import help_instruction
@@ -10,7 +9,7 @@ from buttons import hide_keyboard
 from weather import weather_input
 from config import API
 from telebot import types
-# from cash_report import create_google_sheet
+
 
 
 bot = telebot.TeleBot(config.BOT_TOKEN)
@@ -18,11 +17,6 @@ bot = telebot.TeleBot(config.BOT_TOKEN)
 @bot.message_handler(commands=['start'])
 def handle_welcome_message(message):
     welcome_message(bot, message)
-
-# @bot.message_handler(content_types=['photo'])
-# def handle_photo_function(message):
-#     handle_photo(bot, message)
-# RELATED TO THE 'CONTENT' TAB
 
 @bot.message_handler(commands=['help'])
 def handle_help_instruction(message):
@@ -49,13 +43,6 @@ def handle_finish_command(message):
     bot.send_message(message.chat.id, 'Keyboard is hidden.', reply_markup=reply_markup)
 
 states = {}
-#used to follow the user behavior, in my example it is checking to determine in which condition
-#is a user after clicking on the "Weather" button.
-
-#The states variable allows you to save the user's state between different messages and perform
-#different actions depending on this state. The states variable allows you to save the user's
-#state between different messages and perform different actions depending on this state.
-
 
 @bot.message_handler(func=lambda message: True)
 def handle_all_messages(message):
@@ -127,7 +114,7 @@ def handle_all_messages(message):
             pass
 
 # Callback setup for buttons
-@bot.callback_query_handler(func=lambda callback: True) #Lambda is anonymous function in Python --> If one parameter is empty, then True
+@bot.callback_query_handler(func=lambda callback: True)
 def callback_message(callback):
     if callback.data == 'delete':
         bot.delete_message(callback.message.chat.id, callback.message.message_id - 1)
