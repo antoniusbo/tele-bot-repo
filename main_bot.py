@@ -1,6 +1,5 @@
 import telebot
 import config
-# from content import handle_photo
 from commands import welcome_message
 from commands import help_instruction
 from buttons import create_keyboard
